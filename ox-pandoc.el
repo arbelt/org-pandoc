@@ -184,9 +184,9 @@ to expand the stack here."
 
 (defun org-pandoc-run-pandoc (filename outfilename output-format &optional options)
   (let* ((args (list "-t" (symbol-name output-format)
-                     "-o" outfilename
+                     "-o" (shell-quote-argument outfilename)
                      options
-                     filename))
+		     (shell-quote-argument filename)))
          (command (concat org-pandoc-command " " (mapconcat 'identity args " "))))
     (message "Running pandoc as: %s" command)
     (message "Ran pandoc: %s" (shell-command-to-string command))))
